@@ -9,7 +9,7 @@
 </head>
 <body class="bg-gray-50">
     <!-- Navbar -->
-    <nav class="bg-white shadow-md fixed w-full z-10">
+    <nav class="bg-white shadow-md fixed w-full z-30 top-0 left-0">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
                 <div class="flex items-center">
@@ -29,21 +29,35 @@
     </nav>
 
     <!-- Hero Section -->
-    <section id="home" class="pt-24 pb-16 bg-gradient-to-r from-blue-600 to-blue-800">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center text-white">
-                <h1 class="text-4xl md:text-6xl font-bold mb-4">
+   <section id="home" class="relative pt-28 pb-16 flex items-center min-h-[80vh] overflow-hidden">
+    <img src="{{ asset('images/foto_rental.png') }}" 
+         alt="Latar Belakang Rental Motor" 
+         class="absolute inset-0 w-full h-full object-cover z-0">
+    
+    <div class="absolute inset-0 bg-black/50 z-10"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-20">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+            
+            <div class="text-center md:text-left text-white">
+                <h1 class="text-4xl md:text-5xl font-extrabold mb-4 leading-tight">
                     Sewa Motor Terpercaya
                 </h1>
-                <p class="text-xl mb-8">
-                    Nikmati perjalanan nyaman dengan harga terjangkau
+                <p class="text-lg md:text-xl mb-8 text-gray-100">
+                    Nikmati perjalanan nyaman dengan armada prima dan harga yang sangat terjangkau.
                 </p>
-                <a href="#motor" class="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100">
-                    Lihat Motor
-                </a>
+                <div class="flex flex-col sm:flex-row justify-center md:justify-start gap-4">
+                    <a href="#motor" class="bg-white text-gray-900 px-8 py-3 rounded-lg font-bold shadow-md hover:bg-gray-100 transition duration-200 text-center">
+                        Lihat Motor
+                    </a>
+                </div>
             </div>
+
+            {{-- <div class="hidden md:block"></div> --}}
+
         </div>
-    </section>
+    </div>
+</section>
 
     <!-- Motor Section -->
     <section id="motor" class="py-16">

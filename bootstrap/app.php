@@ -4,6 +4,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use App\Http\Middleware\AdminMiddleware; // <--- 1. Import class middleware-nya
+use App\Http\Middleware\LogAdminAccess;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -15,6 +16,7 @@ return Application::configure(basePath: dirname(__DIR__))
         // 2. Daftarkan alias 'admin' di sini
         $middleware->alias([
             'admin' => AdminMiddleware::class,
+            'log-admin' => LogAdminAccess::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

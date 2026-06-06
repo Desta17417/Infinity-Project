@@ -23,6 +23,12 @@ class ImageCompressionService
             if (class_exists('\Intervention\Image\Facades\Image')) {
                 return self::compressWithIntervention($file, $path, $maxWidth, $quality);
             }
+
+            // Jika GD tidak tersedia, simpan file asli tanpa kompresi
+            if (!extension_loaded('gd')) {
+                \Log::warning('GD Library tidak tersedia, menyimpan gambar asli tanpa kompresi.');
+                return self::storeOriginal($file, $path);
+            }
             
             // Fallback ke GD Library
             return self::compressWithGD($file, $path, $maxWidth, $quality);
@@ -84,7 +90,7 @@ class ImageCompressionService
                     $source = imagecreatefromwebp($tmpPath);
                     $format = 'webp';
                 } else {
-                    throw new \Exception('Format WebP tidak didukung di server ini');
+                    return self::storeOriginal($file, $path);
                 }
                 break;
             default:
@@ -139,6 +145,22 @@ class ImageCompressionService
         @unlink($tempFile);
 
         return $storagePath;
+    }
+
+    /**
+     * Simpan file asli tanpa kompresi jika engine kompresi tidak tersedia
+     *
+     * @param \Illuminate\Http\UploadedFile $file
+     * @param string $path
+     * @return string
+     */
+    private static function storeOriginal($file, $path)
+    {
+        $fileName = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+        $fullPath = $path . '/' . $fileName;
+
+        Storage::disk('public')->putFileAs($path, $file, $fileName);
+        return $fullPath;
     }
 
     /**

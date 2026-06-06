@@ -45,34 +45,35 @@ class RentalController extends Controller
         $tglSewa = new \DateTime($request->tanggal_sewa);
         $tglKembali = new \DateTime($request->tanggal_kembali);
         $durasi = $tglSewa->diff($tglKembali)->days;
-        if ($durasi <= 0) $durasi = 1;
+        if ($durasi <= 0)
+            $durasi = 1;
 
         $totalHarga = $durasi * $motor->harga_sewa;
 
         $rental = Rental::create([
-            'motor_id'      => $request->motor_id,
-            'user_id'       => Auth::id(), // Pastikan user sudah login
-            'tanggal_sewa'  => $request->tanggal_sewa,
-            'tanggal_kembali'=> $request->tanggal_kembali,
-            'total_harga'   => $totalHarga,
-            'status'        => 'pending',
+            'motor_id' => $request->motor_id,
+            'user_id' => Auth::id(), // Pastikan user sudah login
+            'tanggal_sewa' => $request->tanggal_sewa,
+            'tanggal_kembali' => $request->tanggal_kembali,
+            'total_harga' => $totalHarga,
+            'status' => 'pending',
         ]);
 
         // Redirect ke route payment.index yang sudah kita daftarkan di web.php
         return redirect()->route('payment.index', $rental->id)
-                         ->with('success', 'Pemesanan berhasil dibuat!');
+            ->with('success', 'Pemesanan berhasil dibuat!');
     }
 
     /**
      * Menampilkan halaman instruksi pembayaran.
      */
-public function payment($id)
-{
-    $rental = Rental::with('motor')->findOrFail($id);
-    // Pastikan file ini ada di resources/views/payment/index.blade.php
-    // Dan BUKAN resources/views/admin/payment/index.blade.php
-    return view('payment.index', compact('rental'));
-}
+    public function payment($id)
+    {
+        $rental = Rental::with('motor')->findOrFail($id);
+        // Pastikan file ini ada di resources/views/payment/index.blade.php
+        // Dan BUKAN resources/views/admin/payment/index.blade.php
+        return view('payment.index', compact('rental'));
+    }
     /**
      * Memproses konfirmasi pembayaran dari User.
      */
@@ -86,8 +87,8 @@ public function payment($id)
 
         Payment::create([
             'rental_id' => $rental->id,
-            'metode'    => $request->metode_pembayaran,
-            'status'    => 'pending',
+            'metode' => $request->metode_pembayaran,
+            'status' => 'pending',
         ]);
 
         // Update status rental menjadi confirmed (menunggu verifikasi admin)

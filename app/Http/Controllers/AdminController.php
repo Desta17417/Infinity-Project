@@ -22,4 +22,3 @@ class AdminController extends Controller
         // Pastikan path view sesuai (admin/dashboard.blade.php)
         return view('admin.dashboard', $data);
     }
-}

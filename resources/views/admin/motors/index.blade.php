@@ -17,6 +17,7 @@
                     <th>Harga Sewa / Hari</th>
                     <th class="text-center">Status</th>
                     <th>Penyewa / Rental Info</th>
+
                     <th class="text-center">Aksi</th>
                 </tr>
             </thead>
@@ -27,6 +28,19 @@
                     <td>{{ $m->merk }}</td>
                     <td><span class="text-success fw-bold">Rp {{ number_format($m->harga_sewa, 0, ',', '.') }}</span></td>
                     <td class="text-center">
+            <span class="badge rounded-pill bg-{{ $m->status == 'tersedia' ? 'success' : 'danger' }}">
+                            {{ ucfirst($m->status) }}
+                        </span>
+                    </td>
+                    <td class="text-center">
+                        <div class="d-flex justify-content-center gap-2">
+                            <a href="{{ route('admin.motors.edit', $m->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                            
+                            <form action="{{ route('admin.motors.destroy', $m->id) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus?')">
+                                    Hapus
                         @if($m->rentals->count() > 0)
                             <span class="badge rounded-pill bg-warning">
                                 {{ $m->rentals->count() }} Penyewaan
@@ -75,7 +89,9 @@
                 </tr>
                 @empty
                 <tr>
+                    <td colspan="5" class="text-center text-muted py-4">Data motor masih kosong.</td>
                     <td colspan="6" class="text-center text-muted py-4">Data motor masih kosong.</td>
+
                 </tr>
                 @endforelse
             </tbody>

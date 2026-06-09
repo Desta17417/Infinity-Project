@@ -9,6 +9,13 @@
         </a>
     </div>
 
+
+    <div class="card border-0 shadow-sm rounded-4">
+        <div class="card-body p-4">
+            <div class="row">
+                <div class="col-md-5 mb-4 mb-md-0 text-center">
+                    @if($motor->gambar)
+                        <img src="{{ asset('storage/' . $motor->gambar) }}" class="img-fluid rounded-4 shadow" style="max-height: 400px; object-fit: cover;">
     <div class="card border-0 shadow-sm rounded-4 mb-4">
         <div class="card-body p-4">
             <div class="row">
@@ -46,6 +53,13 @@
                                     </td>
                                 </tr>
                                 <tr>
+                                    <th class="text-muted">Status Armada</th>
+                                    <td>
+                                        @if($motor->status == 'tersedia')
+                                            <span class="badge bg-success py-2 px-3 rounded-pill">Tersedia</span>
+                                        @else
+                                            <span class="badge bg-danger py-2 px-3 rounded-pill">Sedang Disewa</span>
+                                        @endif
                                     <th class="text-muted">Riwayat Penyewaan</th>
                                     <td>
                                         <span class="badge bg-primary py-2 px-3 rounded-pill">
@@ -77,7 +91,7 @@
             </div>
         </div>
     </div>
-
+</div>
     @if($motor->rentals->count() > 0)
     <div class="card border-0 shadow-sm rounded-4">
         <div class="card-header bg-white py-3 border-bottom">
@@ -139,4 +153,5 @@
     .bg-danger-subtle { background-color: #f8d7da; }
     .bg-info-subtle { background-color: #cff4fc; }
 </style>
+
 @endsection

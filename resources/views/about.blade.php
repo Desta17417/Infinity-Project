@@ -103,7 +103,7 @@
             <div class="bg-gradient-to-r from-blue-600 to-indigo-800 rounded-2xl shadow-xl p-8 mb-16">
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center text-white">
                     <div>
-                        <div class="text-4xl font-extrabold mb-2">500+</div>
+                        <div class="text-4xl font-extrabold mb-2">20</div>
                         <div class="text-blue-100 text-sm md:text-base">Motor Tersedia</div>
                     </div>
                     <div>
@@ -125,7 +125,7 @@
                 <div class="flex flex-col md:flex-row gap-8 items-center">
                     <div class="w-full md:w-1/3 text-center md:text-left">
                         <span class="bg-blue-100 text-blue-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Lokasi Garasi</span>
-                        <h2 class="text-2xl font-bold text-gray-800 mt-3 mb-4">Kunjungi Kantor Kami</h2>
+                        <h2 class="text-2xl font-bold text-gray-800 mt-3 mb-4">Kunjungi Tempat Kami</h2>
                         <p class="text-gray-600 mb-4 leading-relaxed">
                             <i class="fas fa-map-marker-alt text-blue-600 mr-2"></i>
                             6CFX+QQ2, Jl. Ukrim, Cupuwatu I, Purwomartani, Kec. Kalasan, Kabupaten Sleman, Daerah Istimewa Yogyakarta 55571

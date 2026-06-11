@@ -12,14 +12,16 @@ class MotorController extends Controller
     // Tambahkan atau ubah fungsi ini di MotorController
     public function index()
     {
-        $motors = \App\Models\Motor::where('status', 'tersedia')->get();
-
-        // Jika request datang dari URL admin, tampilkan view admin
+        // Jika request datang dari URL admin, tampilkan SEMUA motor dengan rental info
         if (request()->is('admin/*')) {
+            $motors = Motor::with(['rentals' => function($query) {
+                $query->with(['user', 'payment'])->orderBy('tanggal_sewa', 'desc');
+            }])->orderBy('nama_motor')->get();
             return view('admin.motors.index', compact('motors'));
         }
 
-        // Jika request publik (URL: /katalog)
+        // Jika request publik (URL: /katalog) - hanya tersedia
+        $motors = Motor::where('status', 'tersedia')->get();
         return view('motors.index', compact('motors'));
     }
     
@@ -73,7 +75,9 @@ class MotorController extends Controller
 
     public function show($id)
     {
-        $motor = \App\Models\Motor::findOrFail($id);
+        $motor = Motor::with(['rentals' => function($query) {
+            $query->with(['user', 'payment'])->orderBy('tanggal_sewa', 'desc');
+        }])->findOrFail($id);
         return view('admin.motors.show', compact('motor'));
     }
 
